@@ -502,6 +502,152 @@
   .att-day-num { font-size: 13px; margin-bottom: 2px; }
   .att-day-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.3px; }
 
+  /* LOGIN SCREEN */
+  #login-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #4F6EF7 0%, #7950F2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  #login-screen.hidden {
+    display: none;
+  }
+  .login-container {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 40px;
+    width: 420px;
+    max-width: 95vw;
+    box-shadow: 0 20px 80px rgba(79, 110, 247, 0.3);
+    animation: slideUp 0.4s ease;
+  }
+  .login-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .login-header-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #fff;
+    margin: 0 auto 16px;
+  }
+  .login-header h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .login-header p {
+    font-size: 13px;
+    color: var(--text3);
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .login-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .login-form-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .login-input {
+    padding: 11px 14px;
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--surface);
+    transition: all 0.15s;
+    outline: none;
+  }
+  .login-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.12);
+  }
+  .login-select {
+    padding: 11px 14px;
+    border: 1.5px solid var(--border2);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.15s;
+    outline: none;
+  }
+  .login-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.12);
+  }
+  .login-submit {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 4px 16px rgba(79, 110, 247, 0.3);
+    font-family: var(--font);
+  }
+  .login-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(79, 110, 247, 0.4);
+  }
+  .login-submit:active {
+    transform: translateY(0);
+  }
+  .login-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .demo-users {
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+  .demo-users strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .demo-user-item {
+    padding: 4px 0;
+    border-bottom: 1px solid #E4EAF740;
+    display: flex;
+    justify-content: space-between;
+  }
+  .demo-user-item:last-child {
+    border-bottom: none;
+  }
+
   /* Collapsed sidebar helpers */
   #sidebar.collapsed .sidebar-role,
   #sidebar.collapsed .logo-text,
@@ -541,6 +687,61 @@
 </style>
 </head>
 <body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-container">
+    <div class="login-header">
+      <div class="login-header-logo"><i class="ti ti-building-skyscraper"></i></div>
+      <h1>EnterpriseOS</h1>
+      <p>Employee Management System v3.0</p>
+    </div>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label class="login-form-label">Select Your Role</label>
+        <select id="login-role" class="login-select" required>
+          <option value="">-- Choose Your Role --</option>
+          <option value="Super Admin">Super Admin</option>
+          <option value="Sub Admin">Sub Admin</option>
+          <option value="HR Manager">HR Manager</option>
+          <option value="Team Leader">Team Leader</option>
+          <option value="Employee">Employee</option>
+        </select>
+      </div>
+      <div class="login-form-group">
+        <label class="login-form-label">Email Address</label>
+        <input type="email" id="login-email" class="login-input" placeholder="Enter your email" required>
+      </div>
+      <div class="login-form-group">
+        <label class="login-form-label">Password</label>
+        <input type="password" id="login-password" class="login-input" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="login-submit"><i class="ti ti-login"></i> Sign In</button>
+    </form>
+    <!-- <div class="demo-users">
+      <strong>🔓 Demo Credentials (for testing):</strong>
+      <div class="demo-user-item">
+        <span><strong>HR Manager:</strong> hr@technova.com</span>
+        <span>pass123</span>
+      </div>
+      <div class="demo-user-item">
+        <span><strong>Employee:</strong> arjun@technova.com</span>
+        <span>pass123</span>
+      </div>
+      <div class="demo-user-item">
+        <span><strong>Super Admin:</strong> admin@technova.com</span>
+        <span>pass123</span>
+      </div>
+      <div class="demo-user-item">
+        <span><strong>Team Leader:</strong> leader@technova.com</span>
+        <span>pass123</span>
+      </div>
+    </div> -->
+    <div class="login-footer">
+      Secure login • Your data is protected
+    </div>
+  </div>
+</div>
 
 <!-- MODALS -->
 <div class="modal-overlay" id="modal-overlay">
@@ -582,7 +783,7 @@
       <div class="user-name" id="sidebar-user-name">Anita Roy</div>
       <div class="user-role" id="sidebar-user-role">Super Admin</div>
     </div>
-    <i class="ti ti-logout" style="color:var(--text3);cursor:pointer;font-size:16px" onclick="alert('Logged out!')"></i>
+    <i class="ti ti-logout" style="color:var(--text3);cursor:pointer;font-size:16px" onclick="handleLogout()" title="Logout"></i>
   </div>
 </div>
 
@@ -1142,6 +1343,72 @@
 </div><!-- /app -->
 
 <script>
+// ==============================
+// LOGIN SYSTEM
+// ==============================
+const DEMO_CREDENTIALS = {
+  "Super Admin": { email: "admin@technova.com", password: "pass123", name: "Rajesh Kumar", initials: "RK" },
+  "Sub Admin": { email: "subadmin@technova.com", password: "pass123", name: "Mohan Patel", initials: "MP" },
+  "HR Manager": { email: "hr@technova.com", password: "pass123", name: "Pooja Agarwal", initials: "PA" },
+  "Team Leader": { email: "leader@technova.com", password: "pass123", name: "Anita Roy", initials: "AR" },
+  "Employee": { email: "arjun@technova.com", password: "pass123", name: "Arjun Sharma", initials: "AS" },
+};
+
+let isLoggedIn = false;
+let loggedInUser = null;
+
+function handleLogin(e) {
+  e.preventDefault();
+  const role = document.getElementById("login-role").value;
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
+  if (!role) {
+    alert("Please select a role");
+    return;
+  }
+
+  const creds = DEMO_CREDENTIALS[role];
+  
+  if (email === creds.email && password === creds.password) {
+    isLoggedIn = true;
+    loggedInUser = { role, email, name: creds.name, initials: creds.initials };
+    
+    // Hide login screen
+    document.getElementById("login-screen").classList.add("hidden");
+    
+    // Set the role and initialize dashboard
+    currentRole = role;
+    const firstSection = NAV_CONFIG[role][0];
+    const firstItem = firstSection.items[0];
+    activeNavId = firstItem.id;
+    buildSidebar(role);
+    navigateTo(firstItem.page, firstItem.title, firstItem.sub);
+    
+    // Log success
+    console.log(`✓ Logged in as ${role}: ${loggedInUser.name}`);
+  } else {
+    alert(`Invalid credentials for ${role}.\n\nCorrect email: ${creds.email}\nCorrect password: ${creds.password}`);
+  }
+}
+
+function handleLogout() {
+  if (confirm("Are you sure you want to logout?")) {
+    isLoggedIn = false;
+    loggedInUser = null;
+    
+    // Show login screen
+    document.getElementById("login-screen").classList.remove("hidden");
+    
+    // Clear form
+    document.getElementById("login-role").value = "";
+    document.getElementById("login-email").value = "";
+    document.getElementById("login-password").value = "";
+    
+    console.log("✓ Logged out");
+  }
+}
+
 // ==============================
 // DATA STORE
 // ==============================
